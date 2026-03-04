@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Watch & Earn with Harsh</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --primary: #1a1a6e;
+  --primary-mid: #2d2da8;
+  --purple: #6c3fc5;
+  --purple-light: #9b72f0;
+  --gold: #f5c518;
+  --gold-dark: #e0a800;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --bg: #f0f2f8;
+  --card: #ffffff;
+  --text: #1e1e3f;
+  --text-muted: #7b7b9d;
+  --border: #e5e7eb;
+  --grad: linear-gradient(135deg, #1a1a6e 0%, #6c3fc5 100%);
+  --grad2: linear-gradient(135deg, #2d2da8 0%, #9b72f0 100%);
+  --shadow: 0 4px 20px rgba(108,63,197,0.15);
+  --shadow-lg: 0 8px 32px rgba(26,26,110,0.2);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== SCREENS ===== */
+.screen { display:none; min-height:100vh; }
+.screen.active { display:flex; flex-direction:column; }
+
+/* ===== AUTH SCREENS ===== */
+.auth-screen {
+  background: var(--grad);
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.auth-screen::before {
+  content:'';
+  position:absolute;
+  width:300px; height:300px;
+  background: rgba(255,255,255,0.05);
+  border-radius:50%;
+  top:-100px; right:-80px;
+}
+.auth-screen::after {
+  content:'';
+  position:absolute;
+  width:200px; height:200px;
+  background: rgba(255,255,255,0.05);
+  border-radius:50%;
+  bottom:-50px; left:-60px;
+}
+
+.auth-logo {
+  text-align:center;
+  margin-bottom:32px;
+  z-index:1;
+}
+.auth-logo .logo-icon {
+  width:80px; height:80px;
+  background: rgba(255,255,255,0.15);
+  border-radius:24px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 16px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.2);
+  font-size:36px;
+}
+.auth-logo h1 {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:26px;
+  color:#fff;
+  line-height:1.2;
+}
+.auth-logo p { color:rgba(255,255,255,0.7); font-size:14px; margin-top:4px; }
+
+.auth-card {
+  background:#fff;
+  border-radius:28px;
+  padding:32px 24px;
+  width:100%;
+  max-width:400px;
+  z-index:1;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.auth-card h2 {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:22px;
+  margin-bottom:6px;
+  color:var(--text);
+}
+.auth-card .subtitle { color:var(--text-muted); font-size:14px; margin-bottom:24px; }
+
+.form-group { margin-bottom:16px; }
+.form-group label {
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:8px;
+  letter-spacing:0.3px;
+}
+.form-group input {
+  width:100%;
+  padding:14px 16px;
+  border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-family:'Nunito',sans-serif;
+  font-size:15px;
+  color:var(--text);
+  background:#f8f9ff;
+  transition:all 0.2s;
+  outline:none;
+}
+.form-group input:focus {
+  border-color:var(--purple);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(108,63,197,0.1);
+}
+
+.btn-primary {
+  width:100%;
+  padding:15px;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  transition:all 0.2s;
+  box-shadow:0 4px 15px rgba(108,63,197,0.4);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(108,63,197,0.5); }
+.btn-primary:active { transform:translateY(0); }
+
+.auth-switch {
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+  color:var(--text-muted);
+}
+.auth-switch a {
+  color:var(--purple);
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.admin-link {
+  text-align:center;
+  margin-top:16px;
+}
+.admin-link a {
+  color:rgba(255,255,255,0.6);
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:underline;
+  z-index:1;
+  position:relative;
+}
+
+/* ===== APP SCREEN ===== */
+.app-screen {
+  background: var(--bg);
+  flex-direction:column;
+  position:relative;
+  padding-bottom:80px;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: var(--grad);
+  padding:16px 20px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.top-bar .app-title {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:18px;
+  color:#fff;
+}
+.top-bar .coins-badge {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,0.15);
+  padding:8px 14px;
+  border-radius:50px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.2);
+}
+.top-bar .coins-badge .coin-icon { font-size:16px; }
+.top-bar .coins-badge span {
+  color:#fff;
+  font-weight:800;
+  font-size:16px;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== CONTENT AREA ===== */
+.content-area {
+  flex:1;
+  overflow-y:auto;
+  padding:20px 16px;
+}
+
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:16px;
+  color:var(--text);
+}
+
+/* ===== WALLET CARD ===== */
+.wallet-card {
+  background: var(--grad);
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.wallet-card::before {
+  content:'';
+  position:absolute;
+  width:200px; height:200px;
+  background:rgba(255,255,255,0.08);
+  border-radius:50%;
+  top:-60px; right:-40px;
+}
+.wallet-card::after {
+  content:'';
+  position:absolute;
+  width:120px; height:120px;
+  background:rgba(255,255,255,0.05);
+  border-radius:50%;
+  bottom:-30px; left:20px;
+}
+.wallet-card .wc-label {
+  color:rgba(255,255,255,0.7);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.wallet-card .wc-coins {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+.wallet-card .wc-coins .coin-emoji { font-size:40px; }
+.wallet-card .wc-coins .amount {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:42px;
+  color:#fff;
+  line-height:1;
+}
+.wallet-card .wc-coins .unit { color:rgba(255,255,255,0.7); font-size:14px; margin-top:4px; }
+.wallet-card .wc-actions { display:flex; gap:12px; }
+.btn-gold {
+  padding:11px 22px;
+  background:linear-gradient(135deg,#f5c518,#e0a800);
+  color:#1a1a1a;
+  border:none;
+  border-radius:50px;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.2s;
+  box-shadow:0 4px 12px rgba(245,197,24,0.4);
+}
+.btn-gold:hover { transform:translateY(-2px); }
+
+.btn-outline-white {
+  padding:11px 22px;
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:50px;
+  font-family:'Nunito',sans-serif;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.2s;
+  backdrop-filter:blur(10px);
+}
+
+/* ===== STREAK CARD ===== */
+.streak-card {
+  background:#fff;
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+.streak-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+.streak-header .sh-left {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.streak-header .sh-left .fire { font-size:28px; }
+.streak-header .sh-left h3 {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:16px;
+}
+.streak-header .sh-left p { color:var(--text-muted); font-size:12px; }
+.streak-days {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.streak-days::-webkit-scrollbar { display:none; }
+.streak-day {
+  min-width:44px;
+  height:52px;
+  background:var(--bg);
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+  color:var(--text-muted);
+  border:2px solid transparent;
+}
+.streak-day.done { background:linear-gradient(135deg,#22c55e,#16a34a); color:#fff; border-color:#22c55e; }
+.streak-day.current { background:var(--grad); color:#fff; border-color:var(--purple); animation:pulse 2s infinite; }
+.streak-day span { font-size:14px; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(108,63,197,0.4)} 50%{box-shadow:0 0 0 8px rgba(108,63,197,0)} }
+
+.btn-claim {
+  width:100%;
+  margin-top:16px;
+  padding:13px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  transition:all 0.2s;
+  box-shadow:0 4px 12px rgba(34,197,94,0.4);
+}
+.btn-claim:disabled {
+  background:#e5e7eb;
+  color:#9ca3af;
+  box-shadow:none;
+  cursor:not-allowed;
+}
+
+/* ===== TASK CARDS ===== */
+.tasks-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+.task-card {
+  background:#fff;
+  border-radius:var(--radius);
+  padding:16px 12px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+.task-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.task-card:active { transform:translateY(-2px); }
+.task-card .task-icon {
+  width:52px; height:52px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 10px;
+  font-size:26px;
+}
+.task-card h4 {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:12px;
+  margin-bottom:4px;
+}
+.task-card .task-limit {
+  font-size:11px;
+  color:var(--text-muted);
+  font-weight:600;
+}
+.task-card .progress-bar {
+  height:4px;
+  background:var(--bg);
+  border-radius:2px;
+  margin-top:8px;
+  overflow:hidden;
+}
+.task-card .progress-fill {
+  height:100%;
+  background:var(--grad);
+  border-radius:2px;
+  transition:width 0.3s;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background:#fff;
+  border-top:1px solid var(--border);
+  display:flex;
+  z-index:200;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav-item {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:10px 4px;
+  cursor:pointer;
+  transition:all 0.2s;
+  border:none;
+  background:none;
+  gap:3px;
+}
+.nav-item i { font-size:20px; color:var(--text-muted); transition:all 0.2s; }
+.nav-item span { font-size:10px; color:var(--text-muted); font-weight:700; transition:all 0.2s; }
+.nav-item.active i { color:var(--purple); }
+.nav-item.active span { color:var(--purple); }
+.nav-item.active { position:relative; }
+.nav-item.active::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:50%;
+  transform:translateX(-50%);
+  width:32px; height:3px;
+  background:var(--grad);
+  border-radius:2px 2px 0 0;
+}
+
+/* ===== MODALS ===== */
+.modal-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  z-index:500;
+  align-items:flex-end;
+  justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.active { display:flex; }
+.modal-sheet {
+  background:#fff;
+  border-radius:28px 28px 0 0;
+  padding:24px;
+  width:100%;
+  max-width:480px;
+  max-height:90vh;
+  overflow-y:auto;
+  animation:slideUp 0.3s ease;
+}
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal-handle {
+  width:40px; height:4px;
+  background:var(--border);
+  border-radius:2px;
+  margin:0 auto 20px;
+}
+.modal-title {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  margin-bottom:6px;
+}
+.modal-subtitle { color:var(--text-muted); font-size:14px; margin-bottom:24px; }
+
+/* ===== SPIN WHEEL ===== */
+.wheel-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px 0;
+}
+.wheel-wrapper {
+  position:relative;
+  width:280px; height:280px;
+  margin-bottom:24px;
+}
+.wheel-pointer {
+  position:absolute;
+  top:-16px; left:50%;
+  transform:translateX(-50%);
+  font-size:32px;
+  z-index:10;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+#spinWheel {
+  width:280px; height:280px;
+  border-radius:50%;
+  border:6px solid #fff;
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99);
+}
+.spin-info {
+  text-align:center;
+  margin-bottom:20px;
+}
+.spin-info .daily-left {
+  font-size:13px;
+  color:var(--text-muted);
+  font-weight:600;
+}
+.btn-spin {
+  padding:14px 48px;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  border-radius:50px;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:var(--shadow-lg);
+  transition:all 0.2s;
+}
+.btn-spin:hover { transform:scale(1.05); }
+.btn-spin:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+/* ===== SCRATCH CARD ===== */
+.scratch-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+}
+.scratch-card-wrap {
+  position:relative;
+  width:260px; height:160px;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:24px;
+  box-shadow:var(--shadow-lg);
+  cursor:pointer;
+}
+.scratch-reveal {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
+.scratch-reveal .sr-coin { font-size:48px; margin-bottom:8px; }
+.scratch-reveal .sr-amount {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:32px;
+}
+.scratch-reveal .sr-label { font-size:14px; opacity:0.8; }
+.scratch-cover {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#6c3fc5,#2d2da8);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  transition:opacity 0.5s;
+}
+.scratch-cover.revealed { opacity:0; pointer-events:none; }
+.scratch-cover i { font-size:40px; margin-bottom:8px; opacity:0.6; }
+.scratch-cover p { font-weight:700; font-size:16px; }
+.scratch-cover span { font-size:12px; opacity:0.7; }
+
+/* ===== MATH QUIZ ===== */
+.quiz-container { padding:20px; }
+.quiz-question {
+  background:var(--grad);
+  border-radius:var(--radius);
+  padding:32px;
+  text-align:center;
+  margin-bottom:24px;
+  box-shadow:var(--shadow-lg);
+}
+.quiz-question .q-text {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:36px;
+  color:#fff;
+}
+.quiz-question .q-label { color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:8px; }
+.quiz-answer {
+  display:flex;
+  gap:12px;
+  margin-bottom:16px;
+}
+.quiz-answer input {
+  flex:1;
+  padding:14px 16px;
+  border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  text-align:center;
+  outline:none;
+  transition:all 0.2s;
+}
+.quiz-answer input:focus { border-color:var(--purple); box-shadow:0 0 0 4px rgba(108,63,197,0.1); }
+.btn-submit {
+  padding:14px 28px;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.btn-submit:disabled { opacity:0.5; cursor:not-allowed; }
+
+/* ===== AD SCREEN ===== */
+#adScreen {
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:1000;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+#adScreen.active { display:flex; }
+.ad-content {
+  width:100%; max-width:480px;
+  padding:24px;
+  text-align:center;
+}
+.ad-banner {
+  background:linear-gradient(135deg,#1a1a6e,#6c3fc5);
+  border-radius:20px;
+  padding:40px 24px;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+}
+.ad-banner::before {
+  content:'📺';
+  font-size:80px;
+  display:block;
+  margin-bottom:16px;
+  animation:bounce 1s infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.ad-banner h2 {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:22px;
+  color:#fff;
+  margin-bottom:8px;
+}
+.ad-banner p { color:rgba(255,255,255,0.7); font-size:14px; }
+.ad-timer {
+  width:80px; height:80px;
+  border-radius:50%;
+  background:var(--grad);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 24px;
+  box-shadow:var(--shadow-lg);
+}
+.ad-timer .timer-num {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:28px;
+  color:#fff;
+  line-height:1;
+}
+.ad-timer .timer-label { color:rgba(255,255,255,0.7); font-size:10px; }
+.ad-progress {
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.1);
+  border-radius:3px;
+  margin-bottom:24px;
+  overflow:hidden;
+}
+.ad-progress-fill {
+  height:100%;
+  background:var(--gold);
+  border-radius:3px;
+  transition:width 1s linear;
+}
+.btn-skip {
+  padding:14px 32px;
+  border-radius:50px;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  border:none;
+  transition:all 0.2s;
+}
+.btn-skip:disabled {
+  background:rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.4);
+  cursor:not-allowed;
+}
+.btn-skip:not(:disabled) {
+  background:var(--gold);
+  color:#1a1a1a;
+  box-shadow:0 4px 12px rgba(245,197,24,0.4);
+}
+
+/* ===== LEADERBOARD ===== */
+.podium-avatar .crown {
+  position:absolute;
+  top:-14px;
+  font-size:18px;
+}
+.history-item {
+  background:#fff;
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:var(--shadow);
+}
+.history-icon {
+  width:44px; height:44px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
+}
+.history-info { flex:1; }
+.history-info .h-type { font-weight:700; font-size:14px; }
+.history-info .h-date { font-size:12px; color:var(--text-muted); }
+.history-coins {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:16px;
+}
+.history-coins.earn { color:var(--success); }
+.history-coins.spend { color:var(--danger); }
+
+/* ===== PROFILE ===== */
+.profile-header {
+  background:var(--grad);
+  border-radius:0 0 32px 32px;
+  padding:32px 24px;
+  text-align:center;
+  margin:-20px -16px 20px;
+}
+.profile-avatar {
+  width:80px; height:80px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  margin:0 auto 12px;
+  border:3px solid rgba(255,255,255,0.3);
+}
+.profile-name {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  color:#fff;
+}
+.profile-email { color:rgba(255,255,255,0.7); font-size:14px; }
+.profile-stats {
+  display:flex;
+  gap:16px;
+  margin-top:20px;
+}
+.profile-stat {
+  flex:1;
+  background:rgba(255,255,255,0.15);
+  border-radius:14px;
+  padding:12px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+}
+.profile-stat .ps-val {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:20px;
+  color:#fff;
+}
+.profile-stat .ps-label { font-size:11px; color:rgba(255,255,255,0.7); }
+
+.profile-section {
+  background:#fff;
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.profile-section h3 {
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:16px;
+  color:var(--text);
+}
+.profile-field {
+  display:flex;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  gap:12px;
+}
+.profile-field:last-child { border-bottom:none; }
+.profile-field i { color:var(--purple); width:20px; text-align:center; }
+.profile-field-info { flex:1; }
+.profile-field-info label { font-size:11px; color:var(--text-muted); font-weight:600; }
+.profile-field-info p { font-weight:700; font-size:15px; }
+.profile-field .edit-btn {
+  background:var(--bg);
+  border:none;
+  border-radius:8px;
+  padding:6px 12px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--purple);
+  cursor:pointer;
+}
+
+.btn-danger {
+  width:100%;
+  padding:14px;
+  background:#fff;
+  color:var(--danger);
+  border:2px solid var(--danger);
+  border-radius:var(--radius-sm);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.btn-danger:hover { background:var(--danger); color:#fff; }
+
+/* ===== REDEEM ===== */
+.redeem-section { margin-bottom:20px; }
+.redeem-section h3 {
+  font-size:14px;
+  font-weight:700;
+  color:var(--text-muted);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.redeem-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.redeem-card {
+  background:#fff;
+  border-radius:var(--radius-sm);
+  padding:16px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:all 0.2s;
+  border:2px solid transparent;
+  text-align:center;
+}
+.redeem-card:hover { border-color:var(--purple); transform:translateY(-2px); }
+.redeem-card .rc-icon { font-size:28px; margin-bottom:8px; }
+.redeem-card .rc-amount {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:18px;
+  margin-bottom:4px;
+}
+.redeem-card .rc-type { font-size:11px; color:var(--text-muted); font-weight:600; margin-bottom:8px; }
+.redeem-card .rc-coins {
+  background:rgba(245,197,24,0.15);
+  border-radius:50px;
+  padding:4px 12px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold-dark);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.redeem-card .rc-coins.insufficient { background:rgba(239,68,68,0.1); color:var(--danger); }
+
+
+/* ===== ADMIN ===== */
+.admin-screen {
+  background:var(--bg);
+  flex-direction:column;
+}
+.admin-top {
+  background:var(--grad);
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.admin-top h1 {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:18px;
+  color:#fff;
+}
+.admin-tabs {
+  display:flex;
+  background:#fff;
+  border-bottom:2px solid var(--border);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.admin-tabs::-webkit-scrollbar { display:none; }
+.admin-tab {
+  padding:14px 20px;
+  font-weight:700;
+  font-size:14px;
+  color:var(--text-muted);
+  cursor:pointer;
+  white-space:nowrap;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:all 0.2s;
+}
+.admin-tab.active { color:var(--purple); border-color:var(--purple); }
+.admin-content { flex:1; overflow-y:auto; padding:20px 16px; }
+.admin-tab-content { display:none; }
+.admin-tab-content.active { display:block; }
+
+.data-table {
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+.table-header {
+  background:var(--grad);
+  padding:14px 16px;
+  display:grid;
+  gap:8px;
+  font-size:12px;
+  font-weight:700;
+  color:rgba(255,255,255,0.8);
+  letter-spacing:0.3px;
+  text-transform:uppercase;
+}
+.table-header.users-grid { grid-template-columns:2fr 1.5fr 1fr 1fr; }
+.table-header.wr-grid { grid-template-columns:1.5fr 1.5fr 1fr 1fr; }
+.table-row {
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  display:grid;
+  gap:8px;
+  align-items:center;
+  font-size:13px;
+}
+.table-row.users-grid { grid-template-columns:2fr 1.5fr 1fr 1fr; }
+.table-row.wr-grid { grid-template-columns:1.5fr 1.5fr 1fr 1fr; }
+.table-row:last-child { border-bottom:none; }
+.table-row .name { font-weight:700; font-size:14px; }
+.table-row .email-sm { font-size:11px; color:var(--text-muted); }
+.coin-val { font-family:'Poppins',sans-serif; font-weight:700; color:var(--gold-dark); }
+.status-badge {
+  padding:4px 8px;
+  border-radius:50px;
+  font-size:11px;
+  font-weight:700;
+  display:inline-block;
+}
+.status-badge.active { background:rgba(34,197,94,0.1); color:var(--success); }
+.status-badge.banned { background:rgba(239,68,68,0.1); color:var(--danger); }
+.status-badge.pending { background:rgba(245,197,24,0.15); color:var(--gold-dark); }
+.status-badge.completed { background:rgba(34,197,94,0.1); color:var(--success); }
+.status-badge.cancelled { background:rgba(239,68,68,0.1); color:var(--danger); }
+
+.action-row {
+  padding:10px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  justify-content:flex-start;
+}
+.action-row:last-child { border-bottom:none; }
+.btn-action {
+  padding:6px 12px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  border:none;
+  transition:all 0.2s;
+}
+.btn-action.add { background:rgba(34,197,94,0.1); color:var(--success); }
+.btn-action.deduct { background:rgba(239,68,68,0.1); color:var(--danger); }
+.btn-action.ban { background:rgba(239,68,68,0.1); color:var(--danger); }
+.btn-action.unban { background:rgba(34,197,94,0.1); color:var(--success); }
+.btn-action.confirm { background:rgba(34,197,94,0.1); color:var(--success); }
+.btn-action.cancel { background:rgba(239,68,68,0.1); color:var(--danger); }
+
+/* ===== TOAST ===== */
+.toast {
+  position:fixed;
+  bottom:100px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(30,30,63,0.95);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:50px;
+  font-weight:700;
+  font-size:14px;
+  z-index:9999;
+  opacity:0;
+  transition:all 0.3s;
+  white-space:nowrap;
+  box-shadow:var(--shadow-lg);
+  pointer-events:none;
+}
+.toast.show {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ===== STAT CARDS ===== */
+.admin-stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+.stat-card {
+  background:#fff;
+  border-radius:var(--radius-sm);
+  padding:16px;
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.stat-card .sc-icon {
+  width:44px; height:44px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+.stat-card .sc-val {
+  font-family:'Poppins',sans-serif;
+  font-weight:800;
+  font-size:22px;
+}
+.stat-card .sc-label { font-size:12px; color:var(--text-muted); font-weight:600; }
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align:center;
+  padding:48px 24px;
+  color:var(--text-muted);
+}
+.empty-state .es-icon { font-size:48px; margin-bottom:12px; }
+.empty-state p { font-weight:600; }
+
+/* ===== COIN ANIM ===== */
+@keyframes coinPop {
+  0% { transform:scale(0) rotate(-180deg); opacity:0; }
+  60% { transform:scale(1.3) rotate(10deg); }
+  100% { transform:scale(1) rotate(0deg); opacity:1; }
+}
+.coin-pop { animation:coinPop 0.5s ease forwards; }
+
+/* ===== QUICK ACTIONS ===== */
+.quick-actions {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:20px;
+}
+.qa-item {
+  background:#fff;
+  border-radius:14px;
+  padding:14px 8px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.qa-item:hover { transform:translateY(-2px); }
+.qa-item .qa-icon { font-size:24px; margin-bottom:6px; }
+.qa-item span { font-size:11px; font-weight:700; color:var(--text); display:block; }
+
+/* ===== ALERT ===== */
+.alert {
+  padding:12px 16px;
+  border-radius:var(--radius-sm);
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.alert.error { background:rgba(239,68,68,0.1); color:var(--danger); border:1px solid rgba(239,68,68,0.2); }
+.alert.success { background:rgba(34,197,94,0.1); color:var(--success); border:1px solid rgba(34,197,94,0.2); }
+
+@media(min-width:480px) {
+  .tasks-grid { grid-template-columns:repeat(3,1fr); }
+  .modal-overlay { align-items:center; }
+  .modal-sheet { border-radius:28px; max-width:480px; }
+}
+</style>
+<!-- Unity Ads SDK -->
+<script src="https://sdk.unityads.unity3d.com/UnityAds.js" onerror="console.warn('Unity Ads SDK failed to load')"></script>
+</head>
+<body>
+
+<!-- ===== AUTH: USER LOGIN ===== -->
+<div id="userLoginScreen" class="screen auth-screen active">
+  <div class="auth-logo">
+    <div class="logo-icon">🎯</div>
+    <h1>Watch & Earn<br>with Harsh</h1>
+    <p>Complete tasks. Earn coins. Redeem rewards.</p>
+  </div>
+  <div class="auth-card">
+    <h2>Welcome Back! 👋</h2>
+    <p class="subtitle">Sign in to continue earning</p>
+    <div id="loginError" class="alert error" style="display:none"></div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn-primary" onclick="userLogin()">Sign In 🚀</button>
+    <p class="auth-switch">Don't have an account? <a onclick="showScreen('signupScreen')">Sign Up</a></p>
+  </div>
+  <div class="admin-link"><a onclick="showScreen('adminLoginScreen')">🔐 Admin Panel</a></div>
+</div>
+
+<!-- ===== AUTH: USER SIGNUP ===== -->
+<div id="signupScreen" class="screen auth-screen">
+  <div class="auth-logo">
+    <div class="logo-icon">✨</div>
+    <h1>Join & Earn!</h1>
+    <p>Create your account and start earning today</p>
+  </div>
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Fill in your details to get started</p>
+    <div id="signupError" class="alert error" style="display:none"></div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="signupName" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="signupEmail" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="signupPassword" placeholder="Min. 6 characters">
+    </div>
+
+    <button class="btn-primary" onclick="userSignup()">Create Account 🎉</button>
+    <p class="auth-switch">Already have an account? <a onclick="showScreen('userLoginScreen')">Sign In</a></p>
+  </div>
+</div>
+
+<!-- ===== ADMIN LOGIN ===== -->
+<div id="adminLoginScreen" class="screen auth-screen">
+  <div class="auth-logo">
+    <div class="logo-icon">🛡️</div>
+    <h1>Admin Panel</h1>
+    <p>Authorized access only</p>
+  </div>
+  <div class="auth-card">
+    <h2>Admin Login</h2>
+    <p class="subtitle">Enter your admin credentials</p>
+    <div id="adminLoginError" class="alert error" style="display:none"></div>
+    <div class="form-group">
+      <label>Admin Email</label>
+      <input type="email" id="adminEmail" placeholder="admin@rewardapp.com">
+    </div>
+    <div class="form-group">
+      <label>Admin Password</label>
+      <input type="password" id="adminPassword" placeholder="••••••••">
+    </div>
+    <button class="btn-primary" onclick="adminLogin()">Access Dashboard</button>
+    <p class="auth-switch">Not admin? <a onclick="showScreen('userLoginScreen')">User Login</a></p>
+  </div>
+</div>
+
+<!-- ===== USER APP ===== -->
+<div id="appScreen" class="screen app-screen">
+  <div class="top-bar">
+    <div class="app-title">🎯 W&E Harsh</div>
+    <div class="coins-badge">
+      <span class="coin-icon">🪙</span>
+      <span id="topCoins">0</span>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <!-- HOME TAB -->
+    <div id="tab-home" class="tab-content active">
+      <div class="wallet-card">
+        <div class="wc-label">💰 Total Coins Balance</div>
+        <div class="wc-coins">
+          <div class="coin-emoji">🪙</div>
+          <div>
+            <div class="amount" id="walletCoins">0</div>
+            <div class="unit">Coins earned</div>
+          </div>
+        </div>
+        <div class="wc-actions">
+          <button class="btn-gold" onclick="switchTab('tasks')"><i class="fa fa-coins"></i> Earn More</button>
+          <button class="btn-outline-white" onclick="switchTab('redeem')"><i class="fa fa-gift"></i> Redeem</button>
+        </div>
+      </div>
+
+      <div class="streak-card">
+        <div class="streak-header">
+          <div class="sh-left">
+            <div class="fire">🔥</div>
+            <div>
+              <h3>Daily Streak</h3>
+              <p id="streakSubtitle">Keep your streak alive!</p>
+            </div>
+          </div>
+        </div>
+        <div class="streak-days" id="streakDays"></div>
+        <button class="btn-claim" id="streakClaimBtn" onclick="claimStreak()">Claim Daily Reward 🎁</button>
+      </div>
+
+      <div class="section-title">⚡ Quick Tasks</div>
+      <div class="tasks-grid">
+        <div class="task-card" onclick="openTask('spin')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#ff6b6b,#ee5a24)">🎡</div>
+          <h4>Spin Wheel</h4>
+          <div class="task-limit" id="spinLimit">10/10 left</div>
+          <div class="progress-bar"><div class="progress-fill" id="spinProgress" style="width:100%"></div></div>
+        </div>
+        <div class="task-card" onclick="openTask('scratch')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#a29bfe,#6c5ce7)">🃏</div>
+          <h4>Scratch Card</h4>
+          <div class="task-limit" id="scratchLimit">10/10 left</div>
+          <div class="progress-bar"><div class="progress-fill" id="scratchProgress" style="width:100%"></div></div>
+        </div>
+        <div class="task-card" onclick="openTask('quiz')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#00b894,#00cec9)">🧠</div>
+          <h4>Math Quiz</h4>
+          <div class="task-limit" id="quizLimit">10/10 left</div>
+          <div class="progress-bar"><div class="progress-fill" id="quizProgress" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div class="section-title">🔥 Quick Actions</div>
+      <div class="quick-actions">
+        <div class="qa-item" onclick="switchTab('redeem')">
+          <div class="qa-icon">🎁</div>
+          <span>Redeem</span>
+        </div>
+
+        <div class="qa-item" onclick="switchTab('history')">
+          <div class="qa-icon">📜</div>
+          <span>History</span>
+        </div>
+        <div class="qa-item" onclick="switchTab('profile')">
+          <div class="qa-icon">👤</div>
+          <span>Profile</span>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- TASKS TAB -->
+    <div id="tab-tasks" class="tab-content">
+      <div class="section-title">🎮 Daily Tasks</div>
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:20px;">Complete tasks to earn coins. Each task resets at midnight.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="task-card" style="display:flex;align-items:center;gap:16px;text-align:left;padding:18px 16px;" onclick="openTask('spin')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#ff6b6b,#ee5a24);width:60px;height:60px;flex-shrink:0;font-size:30px;">🎡</div>
+          <div style="flex:1">
+            <h4 style="font-size:16px;margin-bottom:4px;">Spin the Wheel</h4>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Spin and earn 1-10 coins randomly</p>
+            <div class="progress-bar"><div class="progress-fill" id="spinProgress2"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div id="spinLimit2" style="font-family:Poppins;font-weight:800;font-size:14px;color:var(--purple)"></div>
+            <div style="font-size:11px;color:var(--text-muted)">left</div>
+          </div>
+        </div>
+
+        <div class="task-card" style="display:flex;align-items:center;gap:16px;text-align:left;padding:18px 16px;" onclick="openTask('scratch')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#a29bfe,#6c5ce7);width:60px;height:60px;flex-shrink:0;font-size:30px;">🃏</div>
+          <div style="flex:1">
+            <h4 style="font-size:16px;margin-bottom:4px;">Scratch Card</h4>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Scratch to reveal 1-10 coins</p>
+            <div class="progress-bar"><div class="progress-fill" id="scratchProgress2"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div id="scratchLimit2" style="font-family:Poppins;font-weight:800;font-size:14px;color:var(--purple)"></div>
+            <div style="font-size:11px;color:var(--text-muted)">left</div>
+          </div>
+        </div>
+
+        <div class="task-card" style="display:flex;align-items:center;gap:16px;text-align:left;padding:18px 16px;" onclick="openTask('quiz')">
+          <div class="task-icon" style="background:linear-gradient(135deg,#00b894,#00cec9);width:60px;height:60px;flex-shrink:0;font-size:30px;">🧠</div>
+          <div style="flex:1">
+            <h4 style="font-size:16px;margin-bottom:4px;">Math Quiz</h4>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Answer correctly to earn 1-10 coins</p>
+            <div class="progress-bar"><div class="progress-fill" id="quizProgress2"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div id="quizLimit2" style="font-family:Poppins;font-weight:800;font-size:14px;color:var(--purple)"></div>
+            <div style="font-size:11px;color:var(--text-muted)">left</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REDEEM TAB -->
+    <div id="tab-redeem" class="tab-content">
+      <div class="wallet-card" style="margin-bottom:20px">
+        <div class="wc-label">Available Balance</div>
+        <div class="wc-coins">
+          <div class="coin-emoji">🪙</div>
+          <div><div class="amount" id="redeemCoins">0</div><div class="unit">Coins</div></div>
+        </div>
+      </div>
+
+      <div class="redeem-section">
+        <h3>💳 Google Play Gift Cards</h3>
+        <div class="redeem-grid" id="giftGrid"></div>
+      </div>
+      <div class="redeem-section">
+        <h3>💸 UPI Cash</h3>
+        <div class="redeem-grid" id="upiGrid"></div>
+      </div>
+    </div>
+
+
+
+    <!-- HISTORY TAB -->
+    <div id="tab-history" class="tab-content">
+      <div class="section-title">📜 Transaction History</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div id="tab-profile" class="tab-content">
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">😊</div>
+        <div class="profile-name" id="profileName">User</div>
+        <div class="profile-email" id="profileEmail">user@example.com</div>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="ps-val" id="profileCoins">0</div>
+            <div class="ps-label">🪙 Coins</div>
+          </div>
+          <div class="profile-stat">
+            <div class="ps-val" id="profileStreak">0</div>
+            <div class="ps-label">🔥 Streak</div>
+          </div>
+          <div class="profile-stat">
+            <div class="ps-val" id="profileTasks">0</div>
+            <div class="ps-label">✅ Tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Account Details</h3>
+        <div class="profile-field">
+          <i class="fa fa-user"></i>
+          <div class="profile-field-info">
+            <label>Full Name</label>
+            <p id="pName">—</p>
+          </div>
+          <button class="edit-btn" onclick="editProfile('name')">Edit</button>
+        </div>
+        <div class="profile-field">
+          <i class="fa fa-envelope"></i>
+          <div class="profile-field-info">
+            <label>Email Address</label>
+            <p id="pEmail">—</p>
+          </div>
+          <button class="edit-btn" onclick="editProfile('email')">Edit</button>
+        </div>
+
+      </div>
+
+      <button class="btn-danger" onclick="logout()"><i class="fa fa-right-from-bracket"></i> Sign Out</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+      <i class="fa fa-house"></i><span>Home</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tasks')" id="nav-tasks">
+      <i class="fa fa-list-check"></i><span>Tasks</span>
+    </button>
+
+    <button class="nav-item" onclick="switchTab('history')" id="nav-history">
+      <i class="fa fa-clock-rotate-left"></i><span>History</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+      <i class="fa fa-user"></i><span>Profile</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== ADMIN SCREEN ===== -->
+<div id="adminScreen" class="screen admin-screen">
+  <div class="admin-top">
+    <div>
+      <h1>🛡️ Admin Panel</h1>
+      <div style="color:rgba(255,255,255,0.7);font-size:12px;">Watch & Earn with Harsh</div>
+    </div>
+    <button onclick="adminLogout()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;">Logout</button>
+  </div>
+
+  <div class="admin-content" style="padding:16px 16px 0">
+    <div class="admin-stats" id="adminStats"></div>
+  </div>
+
+  <div class="admin-tabs">
+    <div class="admin-tab active" onclick="switchAdminTab('users')">👥 Users</div>
+    <div class="admin-tab" onclick="switchAdminTab('withdrawals')">💸 Withdrawals</div>
+  </div>
+
+  <div class="admin-content">
+    <div id="admin-tab-users" class="admin-tab-content active">
+      <div class="data-table" id="usersTable"></div>
+    </div>
+    <div id="admin-tab-withdrawals" class="admin-tab-content">
+      <div class="data-table" id="withdrawalsTable"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SPIN WHEEL MODAL ===== -->
+<div class="modal-overlay" id="spinModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🎡 Spin the Wheel</div>
+    <div class="modal-subtitle">Earn 1-10 coins per spin. 10 spins/day.</div>
+    <div class="wheel-container">
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer">▼</div>
+        <canvas id="spinWheel" width="280" height="280"></canvas>
+      </div>
+      <div class="spin-info">
+        <div class="daily-left" id="spinModalLimit">10 spins remaining today</div>
+      </div>
+      <button class="btn-spin" id="spinBtn" onclick="doSpin()">SPIN!</button>
+    </div>
+    <button onclick="closeModal('spinModal')" style="width:100%;margin-top:12px;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- ===== SCRATCH CARD MODAL ===== -->
+<div class="modal-overlay" id="scratchModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🃏 Scratch Card</div>
+    <div class="modal-subtitle" id="scratchModalLimit">10 scratch cards remaining today</div>
+    <div class="scratch-container">
+      <div class="scratch-card-wrap" id="scratchCardWrap" onclick="doScratch()">
+        <div class="scratch-reveal">
+          <div class="sr-coin">🪙</div>
+          <div class="sr-amount" id="scratchAmount">?</div>
+          <div class="sr-label">Coins</div>
+        </div>
+        <div class="scratch-cover" id="scratchCover">
+          <i class="fa fa-hand-pointer"></i>
+          <p>Tap to Scratch!</p>
+          <span>Your reward is hidden</span>
+        </div>
+      </div>
+    </div>
+    <button onclick="closeModal('scratchModal')" style="width:100%;margin-top:12px;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- ===== QUIZ MODAL ===== -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🧠 Math Quiz</div>
+    <div class="modal-subtitle" id="quizModalLimit">10 quizzes remaining today</div>
+    <div class="quiz-container">
+      <div class="quiz-question">
+        <div class="q-label">Solve this:</div>
+        <div class="q-text" id="quizQuestion">25 + 17</div>
+      </div>
+      <div id="quizFeedback" style="display:none;margin-bottom:12px;"></div>
+      <div class="quiz-answer">
+        <input type="number" id="quizAnswer" placeholder="Your answer" onkeydown="if(event.key==='Enter')submitQuiz()">
+        <button class="btn-submit" id="quizSubmitBtn" onclick="submitQuiz()">Submit</button>
+      </div>
+    </div>
+    <button onclick="closeModal('quizModal')" style="width:100%;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- ===== REDEEM MODAL ===== -->
+<div class="modal-overlay" id="redeemModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="redeemModalTitle">Redeem Reward</div>
+    <div class="modal-subtitle" id="redeemModalSubtitle"></div>
+    <div class="form-group">
+      <label id="redeemInputLabel">Enter UPI ID</label>
+      <input type="text" id="redeemInput" placeholder="yourname@upi">
+    </div>
+    <div id="redeemModalError" class="alert error" style="display:none"></div>
+    <button class="btn-primary" onclick="submitRedeem()">Submit Request 🎁</button>
+    <button onclick="closeModal('redeemModal')" style="width:100%;margin-top:12px;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- ===== EDIT PROFILE MODAL ===== -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="editModalTitle">Edit Profile</div>
+    <div class="form-group">
+      <label id="editModalLabel">New Value</label>
+      <input type="text" id="editModalInput" placeholder="">
+    </div>
+    <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+    <button onclick="closeModal('editModal')" style="width:100%;margin-top:12px;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- ===== ADMIN ACTION MODAL ===== -->
+<div class="modal-overlay" id="adminActionModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="adminActionTitle">Add Coins</div>
+    <div class="modal-subtitle" id="adminActionSubtitle"></div>
+    <div class="form-group">
+      <label>Amount of Coins</label>
+      <input type="number" id="adminCoinAmount" placeholder="Enter coins">
+    </div>
+    <button class="btn-primary" onclick="confirmAdminAction()">Confirm</button>
+    <button onclick="closeModal('adminActionModal')" style="width:100%;margin-top:12px;padding:12px;background:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted);cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- ===== UNITY ADS OVERLAY ===== -->
+<div id="adScreen">
+  <div class="ad-content">
+    <div class="ad-banner">
+      <h2>🎬 Loading Ad...</h2>
+      <p>Please wait while your reward ad loads</p>
+    </div>
+    <div class="ad-timer">
+      <div class="timer-num" id="adTimer" style="font-size:32px">⏳</div>
+      <div class="timer-label">Unity Ads</div>
+    </div>
+    <div class="ad-progress">
+      <div class="ad-progress-fill" id="adProgressFill" style="width:0%"></div>
+    </div>
+    <p style="color:rgba(255,255,255,0.5);font-size:12px;margin-bottom:16px;">Ad powered by Unity Ads — closes automatically</p>
+    <button class="btn-skip" id="skipBtn" disabled onclick="skipAd()">✅ Continue & Claim</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA STORE =====
+const DB = {
+  get(key, def=null) {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
+  },
+  set(key, val) { localStorage.setItem(key, JSON.stringify(val)); },
+  del(key) { localStorage.removeItem(key); }
+};
+
+// ===== CONSTANTS =====
+const ADMIN_EMAIL = 'admin@rewardapp.com';
+const ADMIN_PASS = 'Admin@12345';
+const DAILY_LIMIT = 10;
+const STREAK_REWARDS = [5,8,15,20,30,40,50,70,90,100];
+const REDEEM_OPTIONS = [
+  {type:'gift',amount:'10₹',icon:'🎮',coins:1200},
+  {type:'upi',amount:'10₹',icon:'💸',coins:1500},
+  {type:'gift',amount:'30₹',icon:'🎮',coins:3500},
+  {type:'upi',amount:'30₹',icon:'💸',coins:4200},
+  {type:'gift',amount:'50₹',icon:'🎮',coins:5500},
+  {type:'upi',amount:'50₹',icon:'💸',coins:6500},
+  {type:'gift',amount:'100₹',icon:'🎮',coins:10000},
+  {type:'upi',amount:'100₹',icon:'💸',coins:12000},
+];
+const COLORS = ['#1a1a6e','#6c3fc5','#ff6b6b','#f5c518','#00b894','#fd79a8','#74b9ff','#55efc4'];
+
+let currentUser = null;
+let adCallback = null;
+let adTimer = null;
+let spinRotation = 0;
+let spinning = false;
+let scratchReward = 0;
+let scratchDone = false;
+let currentQuiz = null;
+let editField = null;
+let adminActionTarget = null;
+let adminActionType = null;
+let currentRedeemOption = null;
+
+// ===== HELPERS =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function showToast(msg, dur=3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function rnd(min,max) { return Math.floor(Math.random()*(max-min+1))+min; }
+function todayStr() { return new Date().toDateString(); }
+function fmtDate(ts) {
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function avatarColor(email) {
+  const colors=['#6c3fc5','#1a1a6e','#ff6b6b','#00b894','#f5c518','#fd79a8'];
+  return colors[email.charCodeAt(0)%colors.length];
+}
+function initials(name) { return name.split(' ').map(w=>w[0]).join('').toUpperCase().substring(0,2); }
+
+// ===== AUTH =====
+function userLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.textContent='Please fill all fields';errEl.style.display='flex';return;}
+  const users = DB.get('users',[]);
+  const user = users.find(u=>u.email===email&&u.password===pass);
+  if(!user){errEl.textContent='Invalid email or password';errEl.style.display='flex';return;}
+  if(user.banned){errEl.textContent='Your account has been banned';errEl.style.display='flex';return;}
+  currentUser = user;
+  DB.set('currentUser', email);
+  loadApp();
+}
+function userSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass = document.getElementById('signupPassword').value;
+  const errEl = document.getElementById('signupError');
+  errEl.style.display='none';
+  if(!name||!email||!pass){errEl.textContent='Please fill all required fields';errEl.style.display='flex';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters';errEl.style.display='flex';return;}
+  const users = DB.get('users',[]);
+  if(users.find(u=>u.email===email)){errEl.textContent='Email already registered';errEl.style.display='flex';return;}
+
+  const newUser = {
+    id: Date.now(),
+    name, email, password: pass,
+    coins: 0,
+    history: [],
+    streak:0,
+    lastStreak: null,
+    lastClaim: null,
+    tasksToday:{date:'',spin:0,scratch:0,quiz:0},
+    totalTasks:0,
+    banned: false,
+    joinDate: Date.now()
+  };
+  users.push(newUser);
+  DB.set('users', users);
+  currentUser = newUser;
+  DB.set('currentUser', email);
+  loadApp();
+}
+function adminLogin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass = document.getElementById('adminPassword').value;
+  const errEl = document.getElementById('adminLoginError');
+  errEl.style.display='none';
+  if(email===ADMIN_EMAIL&&pass===ADMIN_PASS){
+    showScreen('adminScreen');
+    renderAdmin();
+  } else {
+    errEl.textContent='Invalid admin credentials';
+    errEl.style.display='flex';
+  }
+}
+function logout() {
+  currentUser = null;
+  DB.del('currentUser');
+  showScreen('userLoginScreen');
+}
+function adminLogout() { showScreen('userLoginScreen'); }
+
+// ===== SAVE USER =====
+function saveUser() {
+  const users = DB.get('users',[]);
+  const idx = users.findIndex(u=>u.email===currentUser.email);
+  if(idx>-1) users[idx] = currentUser;
+  DB.set('users', users);
+}
+
+// ===== LOAD APP =====
+function loadApp() {
+  checkDailyReset();
+  showScreen('appScreen');
+  switchTab('home');
+  renderAll();
+  drawWheel();
+}
+function checkDailyReset() {
+  if(!currentUser) return;
+  const today = todayStr();
+  if(currentUser.tasksToday.date !== today) {
+    currentUser.tasksToday = {date:today,spin:0,scratch:0,quiz:0};
+    saveUser();
+  }
+}
+function renderAll() {
+  updateCoins();
+  renderStreak();
+  renderTaskLimits();
+  renderHistory();
+  renderProfile();
+  renderRedeemOptions();
+}
+function updateCoins() {
+  const c = currentUser.coins;
+  document.getElementById('topCoins').textContent = c;
+  document.getElementById('walletCoins').textContent = c;
+  document.getElementById('redeemCoins').textContent = c;
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const tc = document.getElementById('tab-'+tab);
+  if(tc) tc.classList.add('active');
+  const ni = document.getElementById('nav-'+tab);
+  if(ni) ni.classList.add('active');
+  if(tab==='history') renderHistory();
+  if(tab==='profile') renderProfile();
+}
+
+// ===== STREAK =====
+function renderStreak() {
+  const days = document.getElementById('streakDays');
+  days.innerHTML = '';
+  for(let i=0;i<10;i++) {
+    const d = document.createElement('div');
+    d.className = 'streak-day';
+    const isDone = i < currentUser.streak;
+    const isCurrent = i === currentUser.streak;
+    if(isDone) d.className += ' done';
+    else if(isCurrent) d.className += ' current';
+    d.innerHTML = `<span>${isDone?'✓':STREAK_REWARDS[i]}</span><div style="font-size:9px">D${i+1}</div>`;
+    days.appendChild(d);
+  }
+  const claimed = currentUser.lastClaim === todayStr();
+  const btn = document.getElementById('streakClaimBtn');
+  btn.disabled = claimed;
+  btn.textContent = claimed ? '✓ Claimed Today' : `Claim ${STREAK_REWARDS[Math.min(currentUser.streak,9)]} Coins 🎁`;
+  document.getElementById('streakSubtitle').textContent = `Day ${currentUser.streak+1} • ${STREAK_REWARDS[Math.min(currentUser.streak,9)]} coins available`;
+}
+function claimStreak() {
+  if(currentUser.lastClaim === todayStr()) return;
+  const today = todayStr();
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+  if(currentUser.lastClaim && currentUser.lastClaim !== yesterday.toDateString()) {
+    currentUser.streak = 0;
+  }
+  const reward = STREAK_REWARDS[Math.min(currentUser.streak,9)];
+  currentUser.coins += reward;
+  currentUser.history.push({type:'Daily Streak Day '+(currentUser.streak+1),coins:reward,date:Date.now(),earn:true,icon:'🔥'});
+  currentUser.streak = Math.min(currentUser.streak+1, 10);
+  currentUser.lastClaim = today;
+  saveUser();
+  showAd(()=>{
+    renderAll();
+    showToast(`🔥 Streak claimed! +${reward} coins`);
+  });
+}
+
+// ===== TASK LIMITS =====
+function renderTaskLimits() {
+  ['spin','scratch','quiz'].forEach(t=>{
+    const used = currentUser.tasksToday[t]||0;
+    const left = DAILY_LIMIT-used;
+    const pct = (left/DAILY_LIMIT*100)+'%';
+    const el1 = document.getElementById(t+'Limit');
+    const el2 = document.getElementById(t+'Limit2');
+    const p1 = document.getElementById(t+'Progress');
+    const p2 = document.getElementById(t+'Progress2');
+    if(el1) el1.textContent = left+'/'+DAILY_LIMIT+' left';
+    if(el2) el2.textContent = left+'/'+DAILY_LIMIT;
+    if(p1) p1.style.width = pct;
+    if(p2) p2.style.width = pct;
+  });
+}
+
+// ===== OPEN TASK =====
+function openTask(type) {
+  const used = currentUser.tasksToday[type]||0;
+  if(used>=DAILY_LIMIT){showToast(`⚠️ Daily limit reached! Try tomorrow.`);return;}
+  if(type==='spin') { openSpinModal(); }
+  else if(type==='scratch') { openScratchModal(); }
+  else if(type==='quiz') { openQuizModal(); }
+}
+
+// ===== SPIN WHEEL =====
+function drawWheel() {
+  const canvas = document.getElementById('spinWheel');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx=140,cy=140,r=130;
+  const segs=8;
+  const vals=[1,2,3,4,5,6,7,8,9,10];
+  const segColors=['#1a1a6e','#6c3fc5','#ff6b6b','#f5c518','#00b894','#fd79a8','#74b9ff','#a29bfe'];
+  ctx.clearRect(0,0,280,280);
+  for(let i=0;i<segs;i++){
+    const start=(i/segs)*2*Math.PI - Math.PI/2;
+    const end=((i+1)/segs)*2*Math.PI - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);
+    ctx.closePath();
+    ctx.fillStyle=segColors[i];
+    ctx.fill();
+    ctx.strokeStyle='#fff';
+    ctx.lineWidth=3;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+(end-start)/2);
+    ctx.textAlign='right';
+    ctx.fillStyle='#fff';
+    ctx.font='bold 16px Poppins';
+    ctx.fillText(vals[i],r-14,6);
+    ctx.restore();
+  }
+  // Center
+  ctx.beginPath();
+  ctx.arc(cx,cy,24,0,2*Math.PI);
+  ctx.fillStyle='#fff';
+  ctx.fill();
+  ctx.strokeStyle='#6c3fc5';
+  ctx.lineWidth=3;
+  ctx.stroke();
+  ctx.fillStyle='#1a1a6e';
+  ctx.font='bold 14px Poppins';
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText('GO',cx,cy);
+}
+function openSpinModal() {
+  const left = DAILY_LIMIT-(currentUser.tasksToday.spin||0);
+  document.getElementById('spinModalLimit').textContent = left+' spins remaining today';
+  document.getElementById('spinBtn').disabled = false;
+  openModal('spinModal');
+  drawWheel();
+}
+function doSpin() {
+  if(spinning) return;
+  const used = currentUser.tasksToday.spin||0;
+  if(used>=DAILY_LIMIT){showToast('Daily limit reached!');return;}
+  spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  const reward = rnd(1,10);
+  const segIdx = reward-1;
+  const segAngle = 360/8;
+  const targetAngle = 360*8 + (360 - segIdx*segAngle - segAngle/2);
+  spinRotation += targetAngle;
+  const wheel = document.getElementById('spinWheel');
+  wheel.style.transform = `rotate(${spinRotation}deg)`;
+  setTimeout(()=>{
+    spinning = false;
+    currentUser.coins += reward;
+    currentUser.tasksToday.spin = (currentUser.tasksToday.spin||0)+1;
+    currentUser.totalTasks++;
+    currentUser.history.push({type:'Spin Wheel',coins:reward,date:Date.now(),earn:true,icon:'🎡'});
+    saveUser();
+    closeModal('spinModal');
+    showAd(()=>{
+      renderAll();
+      showToast(`🎡 Spin! You won ${reward} coins!`);
+    });
+  }, 4100);
+}
+
+// ===== SCRATCH CARD =====
+function openScratchModal() {
+  scratchDone = false;
+  scratchReward = rnd(1,10);
+  document.getElementById('scratchAmount').textContent = scratchReward;
+  document.getElementById('scratchCover').classList.remove('revealed');
+  const left = DAILY_LIMIT-(currentUser.tasksToday.scratch||0);
+  document.getElementById('scratchModalLimit').textContent = left+' scratch cards remaining today';
+  openModal('scratchModal');
+}
+function doScratch() {
+  if(scratchDone) return;
+  scratchDone = true;
+  document.getElementById('scratchCover').classList.add('revealed');
+  setTimeout(()=>{
+    currentUser.coins += scratchReward;
+    currentUser.tasksToday.scratch = (currentUser.tasksToday.scratch||0)+1;
+    currentUser.totalTasks++;
+    currentUser.history.push({type:'Scratch Card',coins:scratchReward,date:Date.now(),earn:true,icon:'🃏'});
+    saveUser();
+    setTimeout(()=>{
+      closeModal('scratchModal');
+      showAd(()=>{
+        renderAll();
+        showToast(`🃏 You scratched ${scratchReward} coins!`);
+      });
+    }, 1200);
+  }, 300);
+}
+
+// ===== MATH QUIZ =====
+function genQuiz() {
+  const ops=['+','-','×'];
+  const op = ops[rnd(0,2)];
+  let a,b,ans;
+  if(op==='+'){a=rnd(10,99);b=rnd(10,99);ans=a+b;}
+  else if(op==='-'){a=rnd(30,99);b=rnd(10,a-1);ans=a-b;}
+  else{a=rnd(2,12);b=rnd(2,12);ans=a*b;}
+  return {q:`${a} ${op} ${b}`,ans};
+}
+function openQuizModal() {
+  currentQuiz = genQuiz();
+  document.getElementById('quizQuestion').textContent = currentQuiz.q;
+  document.getElementById('quizAnswer').value = '';
+  document.getElementById('quizFeedback').style.display='none';
+  document.getElementById('quizSubmitBtn').disabled = false;
+  const left = DAILY_LIMIT-(currentUser.tasksToday.quiz||0);
+  document.getElementById('quizModalLimit').textContent = left+' quizzes remaining today';
+  openModal('quizModal');
+  setTimeout(()=>document.getElementById('quizAnswer').focus(),300);
+}
+function submitQuiz() {
+  const ans = parseInt(document.getElementById('quizAnswer').value);
+  const fb = document.getElementById('quizFeedback');
+  if(isNaN(ans)){fb.className='alert error';fb.textContent='Please enter a number';fb.style.display='flex';return;}
+  document.getElementById('quizSubmitBtn').disabled = true;
+  if(ans===currentQuiz.ans){
+    const reward = rnd(1,10);
+    fb.className='alert success';
+    fb.textContent=`✅ Correct! You earned ${reward} coins!`;
+    fb.style.display='flex';
+    currentUser.coins += reward;
+    currentUser.tasksToday.quiz = (currentUser.tasksToday.quiz||0)+1;
+    currentUser.totalTasks++;
+    currentUser.history.push({type:'Math Quiz',coins:reward,date:Date.now(),earn:true,icon:'🧠'});
+    saveUser();
+    setTimeout(()=>{
+      closeModal('quizModal');
+      showAd(()=>{
+        renderAll();
+        showToast(`🧠 Correct! +${reward} coins!`);
+      });
+    }, 1500);
+  } else {
+    fb.className='alert error';
+    fb.textContent=`❌ Wrong! Answer was ${currentQuiz.ans}. Try again!`;
+    fb.style.display='flex';
+    document.getElementById('quizSubmitBtn').disabled = false;
+    currentQuiz = genQuiz();
+    setTimeout(()=>{
+      document.getElementById('quizQuestion').textContent = currentQuiz.q;
+      document.getElementById('quizAnswer').value='';
+      fb.style.display='none';
+    },2000);
+  }
+}
+
+// ===== UNITY ADS SYSTEM =====
+// Unity Ads configuration — replace with your real Game ID & Placement ID
+const UNITY_GAME_ID = '6058409';
+const UNITY_PLACEMENT = 'Rewarded_Android';
+let unityAdsReady = false;
+
+// ===== UNITY ADS INIT =====
+function initUnityAds() {
+  if (typeof UnityAds !== 'undefined') {
+    UnityAds.initialize(UNITY_GAME_ID, false, {
+      onComplete: function() {
+        unityAdsReady = true;
+        console.log('Unity Ads initialized ✅');
+        // Preload rewarded ad
+        UnityAds.load(UNITY_PLACEMENT, {
+          onComplete: function() { console.log('Ad preloaded ✅'); },
+          onFailed: function(placement, err) { console.warn('Preload failed:', err); }
+        });
+      },
+      onFailed: function(err, msg) {
+        console.warn('Unity Ads init failed:', err, msg);
+        unityAdsReady = false;
+      }
+    });
+  } else {
+    console.warn('Unity Ads SDK not found — using simulated fallback');
+    unityAdsReady = false;
+  }
+}
+
+function showAd(callback) {
+  adCallback = callback;
+
+  if (unityAdsReady && typeof UnityAds !== 'undefined') {
+    // ===== REAL UNITY ADS =====
+    showAdOverlay(true);
+    UnityAds.show(UNITY_PLACEMENT, {
+      onStart: function(placement) {
+        console.log('Ad started:', placement);
+        document.getElementById('adTimer').textContent = '▶';
+        document.getElementById('adProgressFill').style.width = '50%';
+      },
+      onSkipped: function(placement) {
+        console.log('Ad skipped');
+        hideAdOverlay();
+        showToast('⚠️ Ad skip kiya — reward nahi milega!');
+        adCallback = null;
+      },
+      onComplete: function(placement) {
+        console.log('Ad completed ✅');
+        document.getElementById('adProgressFill').style.width = '100%';
+        hideAdOverlay();
+        // Preload next ad
+        UnityAds.load(UNITY_PLACEMENT, {
+          onComplete: function() {},
+          onFailed: function() {}
+        });
+        if (adCallback) { adCallback(); adCallback = null; }
+      },
+      onFailed: function(placement, err, msg) {
+        console.warn('Ad show failed:', err, msg);
+        hideAdOverlay();
+        // Fallback to simulated if ad fails
+        runSimulatedAd();
+      }
+    });
+  } else {
+    // ===== SIMULATED FALLBACK =====
+    showAdOverlay(false);
+    runSimulatedAd();
+  }
+}
+
+function runSimulatedAd() {
+  let t = 30;
+  document.getElementById('adTimer').textContent = t;
+  document.getElementById('adProgressFill').style.width = '0%';
+  document.getElementById('skipBtn').disabled = true;
+  clearInterval(adTimer);
+  adTimer = setInterval(() => {
+    t--;
+    document.getElementById('adTimer').textContent = t;
+    document.getElementById('adProgressFill').style.width = ((30 - t) / 30 * 100) + '%';
+    if (t <= 0) {
+      clearInterval(adTimer);
+      document.getElementById('skipBtn').disabled = false;
+    }
+  }, 1000);
+}
+
+function showAdOverlay(isReal) {
+  const adEl = document.getElementById('adScreen');
+  adEl.classList.add('active');
+  adEl.style.display = 'flex';
+  const banner = adEl.querySelector('.ad-banner h2');
+  const sub = adEl.querySelector('.ad-banner p');
+  if (isReal) {
+    banner.textContent = '🎬 Ad chal raha hai...';
+    sub.textContent = 'Unity rewarded ad — please wait';
+    document.getElementById('skipBtn').disabled = true;
+  } else {
+    banner.textContent = '🎬 Watch & Earn!';
+    sub.textContent = 'Ad dekho aur coins kamao!';
+  }
+}
+
+function hideAdOverlay() {
+  clearInterval(adTimer);
+  const adEl = document.getElementById('adScreen');
+  adEl.classList.remove('active');
+  adEl.style.display = 'none';
+}
+
+function skipAd() {
+  clearInterval(adTimer);
+  hideAdOverlay();
+  if (adCallback) { adCallback(); adCallback = null; }
+}
+
+// ===== REDEEM =====
+function renderRedeemOptions() {
+  const coins = currentUser.coins;
+  const giftGrid = document.getElementById('giftGrid');
+  const upiGrid = document.getElementById('upiGrid');
+  giftGrid.innerHTML=''; upiGrid.innerHTML='';
+  REDEEM_OPTIONS.forEach((opt,i)=>{
+    const enough = coins >= opt.coins;
+    const card = document.createElement('div');
+    card.className = 'redeem-card';
+    card.innerHTML = `
+      <div class="rc-icon">${opt.icon}</div>
+      <div class="rc-amount">${opt.amount}</div>
+      <div class="rc-type">${opt.type==='gift'?'Gift Card':'UPI Cash'}</div>
+      <div class="rc-coins ${enough?'':'insufficient'}">🪙 ${opt.coins.toLocaleString()}</div>
+    `;
+    if(enough) card.onclick = ()=>openRedeemModal(i);
+    else card.style.opacity='0.6';
+    if(opt.type==='gift') giftGrid.appendChild(card);
+    else upiGrid.appendChild(card);
+  });
+}
+function openRedeemModal(idx) {
+  currentRedeemOption = REDEEM_OPTIONS[idx];
+  const isUPI = currentRedeemOption.type==='upi';
+  document.getElementById('redeemModalTitle').textContent = `Redeem ${currentRedeemOption.amount} ${isUPI?'UPI Cash':'Gift Card'}`;
+  document.getElementById('redeemModalSubtitle').textContent = `Costs ${currentRedeemOption.coins.toLocaleString()} coins`;
+  document.getElementById('redeemInputLabel').textContent = isUPI ? 'Your UPI ID' : 'Email for Gift Card';
+  document.getElementById('redeemInput').placeholder = isUPI ? 'yourname@upi' : 'you@gmail.com';
+  document.getElementById('redeemModalError').style.display='none';
+  document.getElementById('redeemInput').value='';
+  openModal('redeemModal');
+}
+function submitRedeem() {
+  const val = document.getElementById('redeemInput').value.trim();
+  const errEl = document.getElementById('redeemModalError');
+  errEl.style.display='none';
+  if(!val){errEl.textContent='Please enter the required information';errEl.style.display='flex';return;}
+  if(currentUser.coins < currentRedeemOption.coins){errEl.textContent='Insufficient coins';errEl.style.display='flex';return;}
+  currentUser.coins -= currentRedeemOption.coins;
+  const wr = {
+    id:Date.now(),
+    userEmail:currentUser.email,
+    userName:currentUser.name,
+    type:currentRedeemOption.type==='gift'?'Gift Card':'UPI',
+    amount:currentRedeemOption.amount,
+    coins:currentRedeemOption.coins,
+    detail:val,
+    date:Date.now(),
+    status:'pending'
+  };
+  const wrs = DB.get('withdrawals',[]);
+  wrs.push(wr);
+  DB.set('withdrawals',wrs);
+  currentUser.history.push({type:`Redeem ${currentRedeemOption.amount} ${wr.type}`,coins:currentRedeemOption.coins,date:Date.now(),earn:false,icon:'🎁'});
+  saveUser();
+  closeModal('redeemModal');
+  showAd(()=>{
+    renderAll();
+    showToast('🎁 Redemption request submitted!');
+  });
+}
+
+
+// ===== HISTORY =====
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML='';
+  const hist = [...(currentUser.history||[])].reverse();
+  if(!hist.length){
+    list.innerHTML='<div class="empty-state"><div class="es-icon">📜</div><p>No transactions yet</p></div>';
+    return;
+  }
+  hist.forEach(h=>{
+    const item=document.createElement('div');
+    item.className='history-item';
+    item.innerHTML=`
+      <div class="history-icon" style="background:${h.earn?'rgba(34,197,94,0.1)':'rgba(239,68,68,0.1)'}">${h.icon||'🪙'}</div>
+      <div class="history-info">
+        <div class="h-type">${h.type}</div>
+        <div class="h-date">${fmtDate(h.date)}</div>
+      </div>
+      <div class="history-coins ${h.earn?'earn':'spend'}">${h.earn?'+':'-'}${h.coins}</div>`;
+    list.appendChild(item);
+  });
+}
+
+// ===== PROFILE =====
+function renderProfile() {
+  const u = currentUser;
+  document.getElementById('profileAvatar').textContent = initials(u.name);
+  document.getElementById('profileName').textContent = u.name;
+  document.getElementById('profileEmail').textContent = u.email;
+  document.getElementById('profileCoins').textContent = u.coins;
+  document.getElementById('profileStreak').textContent = u.streak;
+  document.getElementById('profileTasks').textContent = u.totalTasks||0;
+  document.getElementById('pName').textContent = u.name;
+  document.getElementById('pEmail').textContent = u.email;
+
+}
+function editProfile(field) {
+  editField = field;
+  document.getElementById('editModalTitle').textContent = field==='name'?'Edit Name':'Edit Email';
+  document.getElementById('editModalLabel').textContent = field==='name'?'New Name':'New Email';
+  document.getElementById('editModalInput').value = field==='name'?currentUser.name:currentUser.email;
+  document.getElementById('editModalInput').type = field==='email'?'email':'text';
+  openModal('editModal');
+}
+function saveProfile() {
+  const val = document.getElementById('editModalInput').value.trim();
+  if(!val){showToast('Please enter a value');return;}
+  if(editField==='name') currentUser.name=val;
+  else currentUser.email=val;
+  saveUser();
+  closeModal('editModal');
+  renderProfile();
+  showToast('✅ Profile updated!');
+}
+
+
+// ===== ADMIN =====
+function renderAdmin() {
+  const users = DB.get('users',[]);
+  const wrs = DB.get('withdrawals',[]);
+  // Stats
+  document.getElementById('adminStats').innerHTML=`
+    <div class="stat-card"><div class="sc-icon" style="background:rgba(108,63,197,0.1)">👥</div><div><div class="sc-val">${users.length}</div><div class="sc-label">Total Users</div></div></div>
+    <div class="stat-card"><div class="sc-icon" style="background:rgba(245,197,24,0.1)">🪙</div><div><div class="sc-val">${users.reduce((s,u)=>s+u.coins,0)}</div><div class="sc-label">Total Coins</div></div></div>
+    <div class="stat-card"><div class="sc-icon" style="background:rgba(34,197,94,0.1)">✅</div><div><div class="sc-val">${wrs.filter(w=>w.status==='completed').length}</div><div class="sc-label">Paid Out</div></div></div>
+    <div class="stat-card"><div class="sc-icon" style="background:rgba(239,68,68,0.1)">⏳</div><div><div class="sc-val">${wrs.filter(w=>w.status==='pending').length}</div><div class="sc-label">Pending</div></div></div>`;
+  renderUsersTable(users);
+  renderWithdrawalsTable(wrs);
+}
+function renderUsersTable(users) {
+  const t = document.getElementById('usersTable');
+  if(!users.length){t.innerHTML='<div class="empty-state"><div class="es-icon">👥</div><p>No users yet</p></div>';return;}
+  t.innerHTML=`<div class="table-header users-grid"><span>User</span><span>Email</span><span>Coins</span><span>Status</span></div>`;
+  users.forEach((u,i)=>{
+    const row=document.createElement('div');
+    row.innerHTML=`<div class="table-row users-grid">
+      <span class="name">${u.name}</span>
+      <span class="email-sm">${u.email}</span>
+      <span class="coin-val">🪙${u.coins}</span>
+      <span><span class="status-badge ${u.banned?'banned':'active'}">${u.banned?'Banned':'Active'}</span></span>
+    </div>
+    <div class="action-row">
+      <button class="btn-action add" onclick="adminAction('add',${i})">➕ Add Coins</button>
+      <button class="btn-action deduct" onclick="adminAction('deduct',${i})">➖ Deduct</button>
+      <button class="btn-action ${u.banned?'unban':'ban'}" onclick="toggleBan(${i})">${u.banned?'✅ Unban':'🚫 Ban'}</button>
+    </div>`;
+    t.appendChild(row);
+  });
+}
+function renderWithdrawalsTable(wrs) {
+  const t = document.getElementById('withdrawalsTable');
+  if(!wrs.length){t.innerHTML='<div class="empty-state"><div class="es-icon">💸</div><p>No withdrawal requests</p></div>';return;}
+  t.innerHTML=`<div class="table-header wr-grid"><span>User</span><span>Type/Detail</span><span>Coins</span><span>Status</span></div>`;
+  [...wrs].reverse().forEach((w,ri)=>{
+    const i=wrs.length-1-ri;
+    const row=document.createElement('div');
+    row.innerHTML=`<div class="table-row wr-grid">
+      <span><div class="name">${w.userName}</div><div class="email-sm">${w.userEmail}</div></span>
+      <span><div class="name">${w.amount} ${w.type}</div><div class="email-sm">${w.detail}</div></span>
+      <span class="coin-val">🪙${w.coins}</span>
+      <span><span class="status-badge ${w.status}">${w.status}</span></span>
+    </div>
+    ${w.status==='pending'?`<div class="action-row">
+      <button class="btn-action confirm" onclick="confirmWR(${i})">✅ Confirm</button>
+      <button class="btn-action cancel" onclick="cancelWR(${i})">❌ Cancel</button>
+    </div>`:''}`;
+    t.appendChild(row);
+  });
+}
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.admin-tab[onclick*="${tab}"]`).classList.add('active');
+  document.getElementById('admin-tab-'+tab).classList.add('active');
+}
+function adminAction(type, userIdx) {
+  adminActionType=type; adminActionTarget=userIdx;
+  document.getElementById('adminActionTitle').textContent = type==='add'?'Add Coins':'Deduct Coins';
+  const users=DB.get('users',[]);
+  document.getElementById('adminActionSubtitle').textContent = `User: ${users[userIdx]?.name}`;
+  document.getElementById('adminCoinAmount').value='';
+  openModal('adminActionModal');
+}
+function confirmAdminAction() {
+  const amt=parseInt(document.getElementById('adminCoinAmount').value);
+  if(isNaN(amt)||amt<=0){showToast('Enter valid amount');return;}
+  const users=DB.get('users',[]);
+  const u=users[adminActionTarget];
+  if(!u)return;
+  if(adminActionType==='add'){
+    u.coins+=amt;
+    u.history.push({type:'Admin Bonus',coins:amt,date:Date.now(),earn:true,icon:'🛡️'});
+  } else {
+    u.coins=Math.max(0,u.coins-amt);
+    u.history.push({type:'Admin Deduction',coins:amt,date:Date.now(),earn:false,icon:'🛡️'});
+  }
+  DB.set('users',users);
+  closeModal('adminActionModal');
+  renderAdmin();
+  showToast('✅ Done!');
+}
+function toggleBan(idx) {
+  const users=DB.get('users',[]);
+  users[idx].banned=!users[idx].banned;
+  DB.set('users',users);
+  renderAdmin();
+}
+function confirmWR(idx) {
+  const wrs=DB.get('withdrawals',[]);
+  wrs[idx].status='completed';
+  DB.set('withdrawals',wrs);
+  renderAdmin();
+  showToast('✅ Request confirmed!');
+}
+function cancelWR(idx) {
+  const wrs=DB.get('withdrawals',[]);
+  const wr=wrs[idx];
+  if(!wr)return;
+  wrs[idx].status='cancelled';
+  const users=DB.get('users',[]);
+  const u=users.find(u=>u.email===wr.userEmail);
+  if(u){
+    u.coins+=wr.coins;
+    u.history.push({type:'Refund: '+wr.amount+' '+wr.type,coins:wr.coins,date:Date.now(),earn:true,icon:'↩️'});
+    if(currentUser&&currentUser.email===wr.userEmail){
+      currentUser.coins+=wr.coins;
+      currentUser.history=[...u.history];
+    }
+  }
+  DB.set('users',users);
+  DB.set('withdrawals',wrs);
+  renderAdmin();
+  showToast('↩️ Coins refunded!');
+}
+
+// ===== AUTO-RESTORE SESSION =====
+window.onload = function() {
+  initUnityAds();
+  const savedEmail = DB.get('currentUser');
+  if(savedEmail) {
+    const users = DB.get('users',[]);
+    const user = users.find(u=>u.email===savedEmail);
+    if(user && !user.banned) {
+      currentUser = user;
+      loadApp();
+      return;
+    }
+  }
+  showScreen('userLoginScreen');
+};
+</script>
+</body>
+</html>
